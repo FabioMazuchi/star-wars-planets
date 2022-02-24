@@ -3,7 +3,7 @@ import Context from '../context/Context';
 
 function Table() {
   const value = useContext(Context);
-  const { data } = value;
+  const { data, filterByName } = value;
 
   return (
     <table>
@@ -22,39 +22,43 @@ function Table() {
         <th>Edited</th>
         <th>URL</th>
       </tr>
-      {data.map(
-        ({
-          name,
-          rotation_period: rotationPeriod,
-          orbital_period: orbitalPeriod,
-          diameter,
-          climate,
-          gravity,
-          terrain,
-          surface_water: surfaceWater,
-          population,
-          films,
-          created,
-          edited,
-          url,
-        }) => (
-          <tr key={ name }>
-            <td>{name}</td>
-            <td>{rotationPeriod}</td>
-            <td>{orbitalPeriod}</td>
-            <td>{diameter}</td>
-            <td>{climate}</td>
-            <td>{gravity}</td>
-            <td>{terrain}</td>
-            <td>{surfaceWater}</td>
-            <td>{population}</td>
-            <td>{films.map((film) => film)}</td>
-            <td>{created}</td>
-            <td>{edited}</td>
-            <td>{url}</td>
-          </tr>
-        ),
-      )}
+      <tbody>
+        {data.filter(({ name }) => name
+          .toLowerCase().includes(filterByName.name.toLowerCase()))
+          .map(
+            ({
+              name,
+              rotation_period: rotationPeriod,
+              orbital_period: orbitalPeriod,
+              diameter,
+              climate,
+              gravity,
+              terrain,
+              surface_water: surfaceWater,
+              population,
+              films,
+              created,
+              edited,
+              url,
+            }) => (
+              <tr key={ name }>
+                <td>{name}</td>
+                <td>{rotationPeriod}</td>
+                <td>{orbitalPeriod}</td>
+                <td>{diameter}</td>
+                <td>{climate}</td>
+                <td>{gravity}</td>
+                <td>{terrain}</td>
+                <td>{surfaceWater}</td>
+                <td>{population}</td>
+                <td>{films.map((film) => film)}</td>
+                <td>{created}</td>
+                <td>{edited}</td>
+                <td>{url}</td>
+              </tr>
+            ),
+          )}
+      </tbody>
     </table>
   );
 }

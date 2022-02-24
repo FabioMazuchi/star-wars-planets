@@ -6,6 +6,7 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
 
   async function getApi() {
     const listApi = await fetchApi();
@@ -17,7 +18,7 @@ function Provider({ children }) {
     getApi();
   }, []);
 
-  const value = { data };
+  const value = { data, filterByName, setFilterByName };
 
   return <Context.Provider value={ value }>{children}</Context.Provider>;
 }
