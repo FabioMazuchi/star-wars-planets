@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import Context from "../context/Context";
+import React, { useContext } from 'react';
+import Context from '../context/Context';
 
 function Table() {
   const value = useContext(Context);
   const { data, filterByName, filterByNumericValues } = value;
+  const { name: nome } = filterByName;
 
   return (
     <table>
@@ -24,23 +25,21 @@ function Table() {
       </tr>
       <tbody>
         {data
-          .filter(({ name }) =>
-            name.toLowerCase().includes(filterByName.name.toLowerCase())
-          )
+          .filter(({ name }) => name.toLowerCase().includes(nome.toLowerCase()))
           .filter((dat) => {
             let check = false;
             if (filterByNumericValues.length === 0) {
               check = true;
             } else {
-              filterByNumericValues.forEach(({ column, comparsion, value }) => {
+              filterByNumericValues.forEach(({ column, comparsion, value: valor }) => {
                 if (comparsion === 'menor que') {
-                  check = Number(dat[column]) < Number(value);
+                  check = Number(dat[column]) < Number(valor);
                 }
                 if (comparsion === 'maior que') {
-                  check = Number(dat[column]) > Number(value);
+                  check = Number(dat[column]) > Number(valor);
                 }
                 if (comparsion === 'igual a') {
-                  check = Number(dat[column]) === Number(value);
+                  check = Number(dat[column]) === Number(valor);
                 }
               });
               return check;
@@ -63,7 +62,7 @@ function Table() {
               edited,
               url,
             }) => (
-              <tr key={name}>
+              <tr key={ name }>
                 <td>{name}</td>
                 <td>{rotationPeriod}</td>
                 <td>{orbitalPeriod}</td>
@@ -78,7 +77,7 @@ function Table() {
                 <td>{edited}</td>
                 <td>{url}</td>
               </tr>
-            )
+            ),
           )}
       </tbody>
     </table>

@@ -1,12 +1,11 @@
-import React, { useContext, useState } from "react";
-import Context from "../context/Context";
+import React, { useContext, useState } from 'react';
+import Context from '../context/Context';
 
 function Formulario() {
-  const [column, setColumn] = useState("population");
-  const [comparsion, setComparsion] = useState("maior que");
+  const [column, setColumn] = useState('population');
+  const [comparsion, setComparsion] = useState('maior que');
   const [value, setValue] = useState('0');
-  const { filterByNumericValues, setFilterByNumericValues, setFiltrou } =
-    useContext(Context);
+  const { filterByNumericValues, setFilterByNumericValues } = useContext(Context);
 
   function addObj() {
     const obj = {
@@ -15,14 +14,13 @@ function Formulario() {
       value,
     };
     setFilterByNumericValues([...filterByNumericValues, obj]);
-    setFiltrou(true);
   }
 
   return (
     <form>
       <select
-        value={column}
-        onChange={({ target }) => setColumn(target.value)}
+        value={ column }
+        onChange={ ({ target }) => setColumn(target.value) }
         data-testid="column-filter"
       >
         <option>population</option>
@@ -32,8 +30,8 @@ function Formulario() {
         <option>surface_water</option>
       </select>
       <select
-        value={comparsion}
-        onChange={({ target }) => setComparsion(target.value)}
+        value={ comparsion }
+        onChange={ ({ target }) => setComparsion(target.value) }
         data-testid="comparison-filter"
       >
         <option>maior que</option>
@@ -41,12 +39,12 @@ function Formulario() {
         <option>igual a</option>
       </select>
       <input
-        value={value}
-        onChange={({ target }) => setValue(target.value)}
+        value={ value }
+        onChange={ ({ target }) => setValue(target.value) }
         data-testid="value-filter"
         type="number"
       />
-      <button onClick={addObj} data-testid="button-filter" type="button">
+      <button onClick={ addObj } data-testid="button-filter" type="button">
         Filtrar
       </button>
     </form>
