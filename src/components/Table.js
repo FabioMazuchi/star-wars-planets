@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
+import React, { useContext, useEffect } from "react";
+import Context from "../context/Context";
 
 function Table() {
   const value = useContext(Context);
-  const { data, filterByName } = value;
+  const { data, filterByName, filterByNumericValues } = value;
 
   return (
     <table>
@@ -23,8 +23,30 @@ function Table() {
         <th>URL</th>
       </tr>
       <tbody>
-        {data.filter(({ name }) => name
-          .toLowerCase().includes(filterByName.name.toLowerCase()))
+        {data
+          .filter(({ name }) =>
+            name.toLowerCase().includes(filterByName.name.toLowerCase())
+          )
+          .filter((dat) => {
+            let check = false;
+            if (filterByNumericValues.length === 0) {
+              check = true;
+            } else {
+              filterByNumericValues.forEach(({ column, comparsion, value }) => {
+                if (comparsion === 'menor que') {
+                  check = Number(dat[column]) < Number(value);
+                }
+                if (comparsion === 'maior que') {
+                  check = Number(dat[column]) > Number(value);
+                }
+                if (comparsion === 'igual a') {
+                  check = Number(dat[column]) === Number(value);
+                }
+              });
+              return check;
+            }
+            return check;
+          })
           .map(
             ({
               name,
@@ -41,7 +63,7 @@ function Table() {
               edited,
               url,
             }) => (
-              <tr key={ name }>
+              <tr key={name}>
                 <td>{name}</td>
                 <td>{rotationPeriod}</td>
                 <td>{orbitalPeriod}</td>
@@ -56,7 +78,7 @@ function Table() {
                 <td>{edited}</td>
                 <td>{url}</td>
               </tr>
-            ),
+            )
           )}
       </tbody>
     </table>
