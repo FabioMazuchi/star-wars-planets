@@ -15,7 +15,8 @@ function Formulario() {
   const [comparsion, setComparsion] = useState('maior que');
   const [value, setValue] = useState('0');
   const [filters, setFilters] = useState(FILTERS);
-  const { filterByNumericValues, setFilterByNumericValues, removeAll } = useContext(Context);
+  const { filterByNumericValues, setFilterByNumericValues } = useContext(Context);
+  const { removeAll } = useContext(Context);
 
   function addObj() {
     const obj = {

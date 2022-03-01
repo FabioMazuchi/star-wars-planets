@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import Context from "../context/Context";
+import React, { useContext } from 'react';
+import Context from '../context/Context';
 
 const FILTERS = [
   'population',
@@ -10,8 +10,13 @@ const FILTERS = [
 ];
 
 function Filtros() {
-  const { filterByNumericValues, setFilterByNumericValues, setFilters, setColumn, removeAll, setRemoveAll} =
-    useContext(Context);
+  const {
+    filterByNumericValues,
+    setFilterByNumericValues,
+    setFilters,
+    removeAll,
+    setRemoveAll,
+  } = useContext(Context);
 
   function removerFiltros(i, column) {
     const filtros = filterByNumericValues.slice();
@@ -30,11 +35,11 @@ function Filtros() {
     <>
       <ul>
         {filterByNumericValues.map(({ column, comparsion, value }, i) => (
-          <li data-testid="filter" key={column}>
+          <li data-testid="filter" key={ column }>
             {`${column} ${comparsion} ${value}`}
             <button
               type="button"
-              onClick={() => removerFiltros(i, column)}
+              onClick={ () => removerFiltros(i, column) }
               data-testid="button-remove-filters"
             >
               X
@@ -42,7 +47,13 @@ function Filtros() {
           </li>
         ))}
       </ul>
-      <button onClick={removerAll} data-testid='button-remove-filters' type="button">Remover All</button>
+      <button
+        onClick={ removerAll }
+        data-testid="button-remove-filters"
+        type="button"
+      >
+        Remover All
+      </button>
     </>
   );
 }

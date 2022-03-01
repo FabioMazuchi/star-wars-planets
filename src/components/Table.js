@@ -1,136 +1,116 @@
-import React, { useContext, useEffect, useState } from "react";
-import Context from "../context/Context";
+import React, { useContext, useEffect, useState } from 'react';
+import Context from '../context/Context';
+
+const NUMBER_3 = 3;
 
 function Table() {
   const value = useContext(Context);
-  const [filter_one, setFilter_one] = useState([]);
-  const [filter_two, setFilter_two] = useState([]);
-  const [filter_tree, setFilter_tree] = useState([]);
+  const [filterOne, setFilterOne] = useState([]);
+  const [filterTwo, setFilterTwo] = useState([]);
   const { data, setData, filterByName, filterByNumericValues } = value;
   const { name: nome } = filterByName;
 
-  function filterOne() {
-    let array = [];
-    const { column, comparsion, value } = filterByNumericValues[0];
+  function filtroUm() {
+    const array = [];
+    let check = false;
+    const { column, comparsion, value: valor } = filterByNumericValues[0];
+
     data.forEach((dat) => {
       const col = Number(dat[column]);
-      const val = Number(value);
-      if (comparsion === "maior que") {
-        if (col > value) {
+      const val = Number(valor);
+      if (comparsion === 'maior que') {
+        check = col > val;
+        if (check) {
           array.push(dat);
         }
       }
-      if (comparsion === "menor que") {
-        if (col < val) {
+      if (comparsion === 'menor que') {
+        check = col < val;
+        if (check) {
           array.push(dat);
         }
       }
-      if (comparsion === "igual a") {
-        console.log("IGUAL");
-        if (col === val) {
-          console.log("IGUAL");
+      if (comparsion === 'igual a') {
+        check = col === val;
+        if (check) {
           array.push(dat);
         }
       }
     });
-    console.log(array);
-    setFilter_one(array);
+    setFilterOne(array);
     setData(array);
   }
 
-  function filterTwo() {
-    let array = [];
-    const { column, comparsion, value } = filterByNumericValues[1];
-    filter_one.forEach((dat) => {
+  function filtroDois() {
+    const array2 = [];
+    let check = false;
+    const { column, comparsion, value: valor } = filterByNumericValues[1];
+    filterOne.forEach((dat) => {
       const col = Number(dat[column]);
-      const val = Number(value);
-      if (comparsion === "maior que") {
-        if (col > value) {
-          array.push(dat);
+      const val = Number(valor);
+      if (comparsion === 'maior que') {
+        check = col > val;
+        if (check) {
+          array2.push(dat);
         }
       }
-      if (comparsion === "menor que") {
-        if (col < val) {
-          array.push(dat);
+      if (comparsion === 'menor que') {
+        check = col < val;
+        if (check) {
+          array2.push(dat);
         }
       }
-      if (comparsion === "igual a") {
-        console.log("IGUAL");
-        if (col === val) {
-          console.log("IGUAL");
-          array.push(dat);
+      if (comparsion === 'igual a') {
+        check = col === val;
+        if (check) {
+          array2.push(dat);
         }
       }
     });
-    console.log(array);
-    setFilter_two(array);
-    setData(array);
+    setFilterTwo(array2);
+    setData(array2);
   }
 
-  function filterTree() {
-    let array = [];
-    const { column, comparsion, value } = filterByNumericValues[2];
-    filter_two.forEach((dat) => {
+  function filtroTres() {
+    const array3 = [];
+    let check = false;
+    const { column, comparsion, value: valor } = filterByNumericValues[2];
+    filterTwo.forEach((dat) => {
       const col = Number(dat[column]);
-      const val = Number(value);
-      if (comparsion === "maior que") {
-        if (col > value) {
-          array.push(dat);
+      const val = Number(valor);
+      if (comparsion === 'maior que') {
+        check = col > val;
+        if (check) {
+          array3.push(dat);
         }
       }
-      if (comparsion === "menor que") {
-        if (col < val) {
-          array.push(dat);
+      if (comparsion === 'menor que') {
+        check = col < val;
+        if (check) {
+          array3.push(dat);
         }
       }
-      if (comparsion === "igual a") {
-        console.log("IGUAL");
-        if (col === val) {
-          console.log("IGUAL");
-          array.push(dat);
+      if (comparsion === 'igual a') {
+        check = col === val;
+        if (check) {
+          array3.push(dat);
         }
       }
     });
-    console.log(array);
-    setFilter_tree(array);
-    setData(array);
+    setData(array3);
   }
 
   useEffect(() => {
     if (filterByNumericValues.length === 1) {
-      filterOne();
+      filtroUm();
     }
     if (filterByNumericValues.length === 2) {
-      filterTwo();
+      filtroDois();
     }
-    if (filterByNumericValues.length === 3) {
-      filterTree();
+    if (filterByNumericValues.length === NUMBER_3) {
+      filtroTres();
     }
   }, [filterByNumericValues]);
-
-  {
-    /* .filter((dat) => {
-            let check = false;
-            if (filterByNumericValues.length === 0) {
-              check = true;
-            } else {
-              filterByNumericValues.forEach(({ column, comparsion, value: valor }) => {
-                if (comparsion === 'menor que') {
-                  check = Number(dat[column]) < Number(valor);
-                  setData(dat);
-                }
-                if (comparsion === 'maior que') {
-                  check = Number(dat[column]) > Number(valor);
-                  setData(dat);
-                }
-                if (comparsion === 'igual a') {
-                  check = Number(dat[column]) === Number(valor);
-                }
-              });
-            }
-            return check;
-          }) */
-  }
 
   return (
     <table>
@@ -168,7 +148,7 @@ function Table() {
               edited,
               url,
             }) => (
-              <tr key={name}>
+              <tr key={ name }>
                 <td>{name}</td>
                 <td>{rotationPeriod}</td>
                 <td>{orbitalPeriod}</td>
@@ -183,7 +163,7 @@ function Table() {
                 <td>{edited}</td>
                 <td>{url}</td>
               </tr>
-            )
+            ),
           )}
       </tbody>
     </table>
