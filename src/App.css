@@ -1,41 +1,290 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fahkwang', sans-serif;
+}
+
+body {
+  background-color: black;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 8px 0;
+  border-bottom: 1px solid #e4cc94;
+}
+
+header div {
+  display: flex;
+}
+
+header div h4 {
+  font-size: 20px;
+  color: #e4cc94;
+}
+
+header img {
+  width: 200px;
+  height: 65px;
+  margin-right: 5px;
+}
+
+header input {
+  width: 20%;
+}
+
+.person {
+  padding: 8px;
+  background-color: black;
+  border: 1px solid #e4cc94;
+  color: #e4cc94;
+  border-radius: 7px;
+}
+
+header input::placeholder {
+  color: #e4cc94;
+}
+
+.forms {
+  padding: 12px 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-basis: 45%;
+  justify-content: space-between;
+}
+
+form input, select, label {
+  width: 25%;
+  cursor: pointer;
+}
+
+input {
+  cursor: pointer;
+}
+
+form label {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.selected {
+  background-color: #e4cc94;
+  color: black;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+form input[type=radio] {
+  display: none;
 }
 
-.App-header {
+.order {
+  display: flex;
   align-items: center;
-  background-color: #282c34;
+  flex-wrap: wrap;
+  flex-basis: 45%;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: #6a29a0;
   color: white;
+  border: 0;
+  padding: 4px 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-left: 7px;
+}
+
+.button:hover {
+  background-color: #8d47c7;
+}
+
+.filtros {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 2% 15px;
+}
+
+.filtros ul {
+  color: #e4cc94;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.filtros ul li {
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 5px 8px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin-left: 8px;
+}
+
+.filtros ul li button {
+  background-color: rgb(225, 81, 81);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  margin-right: 0px;
+}
+
+.table {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: #e4cc94;
+  min-width: 100%;
+}
+
+th {
+  padding: 2px 4px 0 12px;
+  text-align: left;
+  border-bottom: 2px solid black;
+}
+
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+
+footer {
+  background-color: #a79d9b;
+  padding: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+footer p {
+  text-align: center;
+  font-size: 18px;
+}
+
+footer img {
+  width: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+footer a {
+  background-color: #a79d9b !important;
+}
+
+footer h4 {
+  font-weight: lighter;
+  font-size: 20px;
+}
+
+.links {
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.links div {
+  display: flex;
+  justify-content: space-around;
 }
 
-@keyframes App-logo-spin {
+@media screen and (max-width: 1070px) {
+ .forms {
+   flex-direction: column;
+ } 
+ .formulario {
+   margin-bottom: 20px;
+ }
+ header input {
+   width: 35%;
+ }
+}
 
-  from {
-    transform: rotate(0deg);
+@media screen and (max-width: 856px) {
+  header input {
+    width: 40%;
   }
-
-  to {
-    transform: rotate(360deg);
+  form input, select, label {
+    width: 32%;
   }
-}
+  .button {
+    width: 30%;
+    margin: 10px auto 0;
+  }
+  .filtros ul {
+    width: 100%;
+  }
+ }
+
+ @media screen and (max-width: 560px) {
+  .filtros ul li {
+    margin-bottom: 12px;
+  }
+  .forms {
+    padding: 20px 2%;
+  }
+  header img {
+    margin-bottom: 15px;
+    
+  }
+  header input {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+  footer p {
+    margin-bottom: 12px;
+  }
+  .links img{
+    margin-bottom: 0;
+  }
+ }
+
+ @media screen and (max-width: 414px) {
+  header img {
+    width: 130px;
+  }
+ }
+
+ @media screen and (max-width: 280px) {
+  header img {
+    width: 100px;
+  }
+  .button {
+    width: 60%;
+  }
+  form input, select, label {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .filtros ul li {
+    margin-left: 0;
+  }
+ }
+
+ @media screen and (min-height: 1368px) {
+  .table {
+    margin: 140px 0;
+  }
+ }

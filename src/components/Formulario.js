@@ -1,21 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
+import FILTERS from '../data';
 import Context from '../context/Context';
+import Order from './Order';
 
-const FILTERS = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
 const MENOS_UM = -1;
 
 function Formulario() {
   const [column, setColumn] = useState('population');
   const [comparsion, setComparsion] = useState('maior que');
   const [value, setValue] = useState('0');
-  const [filters, setFilters] = useState(FILTERS);
-  const { filterByNumericValues, setFilterByNumericValues } = useContext(Context);
+  const { filterByNumericValues, setFilterByNumericValues, filters, setFilters, removeFilter } = useContext(Context);
   const { removeAll } = useContext(Context);
 
   function addObj() {
@@ -29,8 +23,14 @@ function Formulario() {
 
   useEffect(() => {
     setColumn('population');
+    setFilters(FILTERS);
   }, [removeAll]);
 
+  useEffect(() => {
+    setComparsion('maior que');
+    setValue('0');
+  }, [removeFilter]);
+  
   useEffect(() => {
     filterByNumericValues.forEach((element) => {
       const valor = Object.values(element)[0];
@@ -45,35 +45,41 @@ function Formulario() {
   }, [filterByNumericValues]);
 
   return (
-    <form>
-      <select
-        value={ column }
-        onChange={ ({ target }) => setColumn(target.value) }
-        data-testid="column-filter"
-      >
-        {filters.map((filter) => (
-          <option key={ filter }>{filter}</option>
-        ))}
-      </select>
-      <select
-        value={ comparsion }
-        onChange={ ({ target }) => setComparsion(target.value) }
-        data-testid="comparison-filter"
-      >
-        <option>maior que</option>
-        <option>menor que</option>
-        <option>igual a</option>
-      </select>
-      <input
-        value={ value }
-        onChange={ ({ target }) => setValue(target.value) }
-        data-testid="value-filter"
-        type="number"
-      />
-      <button onClick={ addObj } data-testid="button-filter" type="button">
-        Filtrar
-      </button>
-    </form>
+    <section className='forms'>
+      <form className='formulario'>
+        <select
+          className='person'
+          value={ column }
+          onChange={ ({ target }) => setColumn(target.value) }
+          data-testid="column-filter"
+        >
+          {filters.map((filter) => (
+            <option key={ filter }>{filter}</option>
+          ))}
+        </select>
+        <select
+          className='person'
+          value={ comparsion }
+          onChange={ ({ target }) => setComparsion(target.value) }
+          data-testid="comparison-filter"
+        >
+          <option>maior que</option>
+          <option>menor que</option>
+          <option>igual a</option>
+        </select>
+        <input
+          className='person'
+          value={ value }
+          onChange={ ({ target }) => setValue(target.value) }
+          data-testid="value-filter"
+          type="number"
+        />
+        <button className='button' onClick={ addObj } data-testid="button-filter" type="button">
+          Filtrar
+        </button>
+      </form>
+      <Order />
+    </section>
   );
 }
 

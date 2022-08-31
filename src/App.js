@@ -1,18 +1,20 @@
 import React from 'react';
 import './App.css';
 import Table from './components/Table';
-import InputFilter from './components/InputFilter';
 import Provider from './context/Provider';
 import Formulario from './components/Formulario';
 import Filtros from './components/Filtros';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <Provider>
-      <InputFilter />
+      <Header />
       <Formulario />
       <Filtros />
       <Table />
+      <Footer />
     </Provider>
   );
 }

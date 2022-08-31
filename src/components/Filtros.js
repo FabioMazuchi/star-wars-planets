@@ -1,13 +1,6 @@
-import React, { useContext } from 'react';
-import Context from '../context/Context';
-
-const FILTERS = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
+import React, { useContext } from "react";
+import Context from "../context/Context";
+import FILTERS from "../data";
 
 function Filtros() {
   const {
@@ -16,6 +9,11 @@ function Filtros() {
     setFilters,
     removeAll,
     setRemoveAll,
+    removeFilter,
+    setRemoveFilter,
+    filterOne,
+    filterTwo,
+    setData,
   } = useContext(Context);
 
   function removerFiltros(i, column) {
@@ -23,6 +21,13 @@ function Filtros() {
     filtros.splice(i, 1);
     setFilterByNumericValues(filtros);
     setFilters((prev) => [...prev, column]);
+    setRemoveFilter(!removeFilter);
+    if (i === 0) {
+      setData(filterTwo);
+    }
+    if (i === 1) {
+      setData(filterOne);
+    }
   }
 
   function removerAll() {
@@ -32,14 +37,14 @@ function Filtros() {
   }
 
   return (
-    <>
+    <section className="filtros">
       <ul>
         {filterByNumericValues.map(({ column, comparsion, value }, i) => (
-          <li data-testid="filter" key={ column }>
+          <li data-testid="filter" key={column}>
             {`${column} ${comparsion} ${value}`}
             <button
               type="button"
-              onClick={ () => removerFiltros(i, column) }
+              onClick={() => removerFiltros(i, column)}
               data-testid="button-remove-filters"
             >
               X
@@ -48,13 +53,14 @@ function Filtros() {
         ))}
       </ul>
       <button
-        onClick={ removerAll }
+        className="button"
+        onClick={removerAll}
         data-testid="button-remove-filters"
         type="button"
       >
-        Remover All
+        Remover Filtros
       </button>
-    </>
+    </section>
   );
 }
 

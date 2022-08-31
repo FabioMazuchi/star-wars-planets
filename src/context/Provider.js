@@ -18,6 +18,10 @@ function Provider({ children }) {
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
   const [filters, setFilters] = useState([FILTERS]);
   const [removeAll, setRemoveAll] = useState(false);
+  const [removeFilter, setRemoveFilter] = useState(false);
+  const [filterOne, setFilterOne] = useState([]);
+  const [filterTwo, setFilterTwo] = useState([]);
+  const [order, setOrder] = useState({ column: '', sort: ''});
 
   async function getApi() {
     const listApi = await fetchApi();
@@ -26,8 +30,10 @@ function Provider({ children }) {
   }
 
   useEffect(() => {
-    getApi();
-  }, []);
+    if (filterByNumericValues.length === 0) {
+      getApi();
+    }
+  }, [removeAll, removeFilter]);
 
   const value = {
     data,
@@ -35,6 +41,14 @@ function Provider({ children }) {
     filterByNumericValues,
     filters,
     removeAll,
+    removeFilter,
+    filterOne,
+    filterTwo,
+    order,
+    setOrder,
+    setFilterOne,
+    setFilterTwo,
+    setRemoveFilter,
     setData,
     setRemoveAll,
     setFilters,

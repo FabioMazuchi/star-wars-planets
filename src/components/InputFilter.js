@@ -11,10 +11,12 @@ function InputFilter() {
 
   return (
     <input
+      className='person'
       value={ filterByName.name }
       onChange={ handleChange }
       data-testid="name-filter"
       type="text"
+      placeholder='Pesquise pelo nome do planeta...'
     />
   );
 }

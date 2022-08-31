@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 
 const NUMBER_3 = 3;
 
 function Table() {
   const value = useContext(Context);
-  const [filterOne, setFilterOne] = useState([]);
-  const [filterTwo, setFilterTwo] = useState([]);
-  const { data, setData, filterByName, filterByNumericValues } = value;
+  const { data, setData, filterByName, filterByNumericValues, removeFilter, filterOne, filterTwo, setFilterOne, setFilterTwo } = value;
   const { name: nome } = filterByName;
 
   function filtroUm() {
@@ -100,6 +98,15 @@ function Table() {
     setData(array3);
   }
 
+  function removeFiltros() {
+    setFilterOne([]);
+    setFilterTwo([]);
+  }
+
+  useEffect(() => {
+    removeFiltros();
+  }, [removeFilter]);
+
   useEffect(() => {
     if (filterByNumericValues.length === 1) {
       filtroUm();
@@ -113,60 +120,62 @@ function Table() {
   }, [filterByNumericValues]);
 
   return (
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Rotation Period</th>
-        <th>Orbital Period</th>
-        <th>Diameter</th>
-        <th>Climate</th>
-        <th>Gravity</th>
-        <th>Terrain</th>
-        <th>Surface Water</th>
-        <th>Population</th>
-        <th>Films</th>
-        <th>Created</th>
-        <th>Edited</th>
-        <th>URL</th>
-      </tr>
-      <tbody>
-        {data
-          .filter(({ name }) => name.toLowerCase().includes(nome.toLowerCase()))
-          .map(
-            ({
-              name,
-              rotation_period: rotationPeriod,
-              orbital_period: orbitalPeriod,
-              diameter,
-              climate,
-              gravity,
-              terrain,
-              surface_water: surfaceWater,
-              population,
-              films,
-              created,
-              edited,
-              url,
-            }) => (
-              <tr key={ name }>
-                <td>{name}</td>
-                <td>{rotationPeriod}</td>
-                <td>{orbitalPeriod}</td>
-                <td>{diameter}</td>
-                <td>{climate}</td>
-                <td>{gravity}</td>
-                <td>{terrain}</td>
-                <td>{surfaceWater}</td>
-                <td>{population}</td>
-                <td>{films.map((film) => film)}</td>
-                <td>{created}</td>
-                <td>{edited}</td>
-                <td>{url}</td>
-              </tr>
-            ),
-          )}
-      </tbody>
-    </table>
+    <section className='table'>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Rotation Period</th>
+          <th>Orbital Period</th>
+          <th>Diameter</th>
+          <th>Climate</th>
+          <th>Gravity</th>
+          <th>Terrain</th>
+          <th>Surface Water</th>
+          <th>Population</th>
+          <th>Films</th>
+          <th>Created</th>
+          <th>Edited</th>
+          <th>URL</th>
+        </tr>
+        <tbody>
+          {data
+            .filter(({ name }) => name.toLowerCase().includes(nome.toLowerCase()))
+            .map(
+              ({
+                name,
+                rotation_period: rotationPeriod,
+                orbital_period: orbitalPeriod,
+                diameter,
+                climate,
+                gravity,
+                terrain,
+                surface_water: surfaceWater,
+                population,
+                films,
+                created,
+                edited,
+                url,
+              }) => (
+                <tr key={ name }>
+                  <td>{name}</td>
+                  <td>{rotationPeriod}</td>
+                  <td>{orbitalPeriod}</td>
+                  <td>{diameter}</td>
+                  <td>{climate}</td>
+                  <td>{gravity}</td>
+                  <td>{terrain}</td>
+                  <td>{surfaceWater}</td>
+                  <td>{population}</td>
+                  <td>{films.map((film) => film)}</td>
+                  <td>{created}</td>
+                  <td>{edited}</td>
+                  <td>{url}</td>
+                </tr>
+              ),
+            )}
+        </tbody>
+      </table>
+    </section>
   );
 }
 
